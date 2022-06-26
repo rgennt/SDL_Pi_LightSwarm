@@ -34,16 +34,17 @@ SWARMSIZE = 5
 
 logString = ""
 # command from command Code
+ROOT_PATH = "/home/pi/projects/lightswarm/SDL_Pi_LightSwarm/"
 
 def completeCommand():
 
-        f = open("/home/pi/SDL_Pi_LightSwarm/state/LSCommand.txt", "w")
+        f = open(ROOT_PATH+"/state/LSCommand.txt", "w")
         f.write("DONE")
         f.close()
 
 def completeCommandWithValue(value):
 
-        f = open("/home/pi/SDL_Pi_LightSwarm/state/LSResponse.txt", "w")
+        f = open(ROOT_PATH+"/state/LSResponse.txt", "w")
         f.write(value)
         print("in completeCommandWithValue=", value)
         f.close()
@@ -52,7 +53,7 @@ def completeCommandWithValue(value):
 
 
 def processCommand(s):
-        f = open("//home/pi/SDL_Pi_LightSwarm/state/LSCommand.txt", "r")
+        f = open(ROOT_PATH+"/state/LSCommand.txt", "r")
         command = f.read()
         f.close()
 
@@ -118,6 +119,7 @@ def SendDEFINE_SERVER_LOGGER_PACKET(s):
 
 	# get IP address
     for ifaceName in interfaces():
+        if (ifaceName == "wlan0"):
             addresses = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':'No IP addr'}] )]
             print('%s: %s' % (ifaceName, ', '.join(addresses)))
   
@@ -335,15 +337,15 @@ def buildWebMapToFile(logString, swarmSize ):
 
 
 
-    f = open("/home/pi/SDL_Pi_LightSwarm/state/figure.html", "w")
+    f = open(ROOT_PATH+"/state/figure.html", "w")
 
     f.write(webresponse)
 
     f.close()
 
-    f = open("/home/pi/SDL_Pi_LightSwarm/state/swarm.html", "w")
-    fh = open("/home/pi/SDL_Pi_LightSwarm/state/swarmheader.txt", "r")
-    ff = open("/home/pi/SDL_Pi_LightSwarm/state/swarmfooter.txt", "r")
+    f = open(ROOT_PATH+"/state/swarm.html", "w")
+    fh = open(ROOT_PATH+"/state/swarmheader.txt", "r")
+    ff = open(ROOT_PATH+"/state/swarmfooter.txt", "r")
 
     webheader = fh.read()
     webfooter = ff.read()
